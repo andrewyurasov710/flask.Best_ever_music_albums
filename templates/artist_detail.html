@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    {{ artist.name }}
+{% endblock %}
+
+{% block main %}
+    <h1 class="text-primary my-5">{{ artist.name }}</h1>
+    <a href="{{ url_for('genre_detail', pk=artist.genre_id) }}" 
+    class="text-decoration-none">
+        <h3 class="text-success">{{ artist.genre_name }}</h3>
+    </a>
+    <div class="row justify-content-between">
+        <div class="col-4"> 
+            <img src="{{ url_for('static', filename='img/' + artist.img) }}" 
+            class="img-fluid">
+        </div>
+        <div class="col-6">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Albumt</th>
+                    <th scope="col">Year</th>
+                    <th scope="col">Charts</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for album in albums %}
+                  <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ album.name }}</td>
+                    <td>{{ album.year }}</td>
+                    <td>{{ album.charts }}</td>
+                  </tr>
+                  {% endfor %}                  
+                </tbody>
+              </table>
+        </div>
+
+        <hr>
+
+        <form class="my-3" method="post" action="{{ url_for('add_album') }}">
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Album`s name</span>
+            <input type="text" name="name" class="form-control" 
+            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Album`s year</span>
+            <input type="number" name="year" class="form-control" 
+            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default">Album`s chart</span>
+            <input type="number" name="charts" class="form-control" 
+            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+          </div>
+          <input type="hidden" name="artist_id" value="{{ artist.id }}">
+          <input type="submit" value="Add Album" class="btn btn-primary">
+      </form>
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    BESTEVERALBUMS
+{% endblock %}
+
+{% block main %}
+    <h1 class="text-primary text-center my-4">BEST EVER MUSIC ALBUMS</h1>
+    <div class="row">
+    {% for artist in artists %}
+        <div class="col-4">
+            <div class="card">
+                <img src="{{ url_for('static', filename='img/' + artist.img) }}" 
+                class="card-img-top">
+                <div class="card-body">
+                    <a href="{{ url_for('artist_detail', pk=artist.id) }}" 
+                    class="text-decoration-none">
+                        <h3>{{ artist.artist_name }}</h3>
+                    </a>  
+                    <a href="{{ url_for('genre_detail', pk=artist.genre_id) }}"
+                    class="text-decoration-none">
+                        <p class="text-success">{{ artist.genre_name }}</p>
+                    </a>                  
+                    
+                     
+                    <p class="card-text">Charts: {{ artist.charts }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}
+

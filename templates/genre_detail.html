@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    {{ genre.name }}
+{% endblock %}
+
+{% block main %}
+    <h1 class="text-success my-5">{{ genre.name }}</h1>
+    
+    {% for artist in artists %}
+        <div class="row justify-content-center my=2">
+            <div class="col-2">
+                <img src="{{ url_for('static', filename='img/' + artist.img) }}" 
+                class="img-fluid">
+            </div>
+            <div class="col-4">
+                <a href="{{ url_for('artist_detail', pk=artist.id) }}" 
+                class="text-decoration-none">
+                    <h3>{{ artist.name }}</h3>
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
